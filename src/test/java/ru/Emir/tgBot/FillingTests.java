@@ -3,265 +3,175 @@ package ru.Emir.tgBot;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import ru.Emir.tgBot.repository.CategoryRepository;
-import ru.Emir.tgBot.repository.ProductRepository;
 import ru.Emir.tgBot.entity.Category;
 import ru.Emir.tgBot.entity.Product;
+import ru.Emir.tgBot.repository.CategoryRepository;
+import ru.Emir.tgBot.repository.ProductRepository;
+
 import java.math.BigDecimal;
 
 @SpringBootTest
 public class FillingTests {
     @Autowired
-    private ProductRepository productRepository;
-
-    @Autowired
     private CategoryRepository categoryRepository;
 
+    @Autowired
+    private ProductRepository productRepository;
+
     @Test
-    void createRecords(){
-        //Создание категорий
+    void createCategories() {
+        /* Основные категории
+            "Пицца"
+            "Роллы"
+            "Бургеры"
+            "Напитки"
+        Подкатегории категории "Роллы"
+            "Классические роллы"
+            "Запечённые роллы"
+            "Сладкие роллы"
+            "Наборы"
+        Подкатегории категории "Бургеры"
+            "Классические бургеры"
+            "Острые бургеры"
+        Подкатегории категории "Напитки"
+            "Газированные напитки"
+            "Энергетические напитки"
+            "Соки"
+            "Другие" */
+
+        // Создание основных категорий
+        // Создание основной категории "Пицца"
         Category pizzaCategory = new Category("Пицца", null);
-        Category rollCategory = new Category("Роллы", null);
-        Category burgerCategory = new Category("Бургеры", null);
-        Category drinkCategory = new Category("Напитки", null);
-
         categoryRepository.save(pizzaCategory);
-        categoryRepository.save(rollCategory);
-        categoryRepository.save(burgerCategory);
-        categoryRepository.save(drinkCategory);
+        // Создание основной категории "Роллы"
+        Category rollsCategory = new Category("Роллы", null);
+        categoryRepository.save(rollsCategory);
+        // Создание основной категории "Бургеры"
+        Category burgersCategory = new Category("Бургеры", null);
+        categoryRepository.save(burgersCategory);
+        // Создание основной категории "Напитки"
+        Category drinksCategory = new Category("Напитки", null);
+        categoryRepository.save(drinksCategory);
 
-        Category classicRollCategory = new Category("Классические роллы"
-                , rollCategory);
-        Category bakeRollCategory = new Category("Запеченные роллы"
-                , rollCategory);
-        Category sweetRollCategory = new Category("Сладкие роллы"
-                , rollCategory);
-        Category setsCategory = new Category("Наборы", rollCategory);
+        // Создание подкатегорий
+        // Создание подкатегории "Классические роллы" категории "Роллы"
+        Category classicRollsCategory = new Category("Классические роллы", rollsCategory);
+        categoryRepository.save(classicRollsCategory);
+        // Создание подкатегории "Запечённые роллы" категории "Роллы"
+        Category bakedRollsCategory = new Category("Запечённые роллы", rollsCategory);
+        categoryRepository.save(bakedRollsCategory);
+        // Создание подкатегории "Сладкие роллы" категории "Роллы"
+        Category sweetRollsCategory = new Category("Сладкие роллы", rollsCategory);
+        categoryRepository.save(sweetRollsCategory);
+        // Создание подкатегории "Наборы" категории "Роллы"
+        Category setsRollsCategory = new Category("Наборы", rollsCategory);
+        categoryRepository.save(setsRollsCategory);
+        // Создание подкатегории "Классические бургеры" категории "Бургеры"
+        Category classicBurgersCategory = new Category("Классические бургеры", burgersCategory);
+        categoryRepository.save(classicBurgersCategory);
+        // Создание подкатегории "Острые бургеры" категории "Бургеры"
+        Category spicyBurgersCategory = new Category("Острые бургеры", burgersCategory);
+        categoryRepository.save(spicyBurgersCategory);
+        // Создание подкатегории "Газированные напитки" категории "Напитки"
+        Category carbonatedDrinksCategory = new Category("Газированные напитки", drinksCategory);
+        categoryRepository.save(carbonatedDrinksCategory);
+        // Создание подкатегории "Энергетические напитки" категории "Напитки"
+        Category energyDrinksCategory = new Category("Энергетические напитки", drinksCategory);
+        categoryRepository.save(energyDrinksCategory);
+        // Создание подкатегории "Соки" категории "Напитки"
+        Category juicesDrinksCategory = new Category("Соки", drinksCategory);
+        categoryRepository.save(juicesDrinksCategory);
+        // Создание подкатегории "Другие" категории "Напитки"
+        Category othersDrinksCategory = new Category("Другие", drinksCategory);
+        categoryRepository.save(othersDrinksCategory);
+    }
 
-        categoryRepository.save(classicRollCategory);
-        categoryRepository.save(bakeRollCategory);
-        categoryRepository.save(sweetRollCategory);
-        categoryRepository.save(setsCategory);
+    @Test
+    void createProducts() {
+        // Получение категорий/подкатегорий из репозитория
+        Category pizzaCategory = categoryRepository.findByName("Пицца");
+        Category rollsCategory = categoryRepository.findByName("Роллы");
+        Category burgersCategory = categoryRepository.findByName("Бургеры");
+        Category drinksCategory = categoryRepository.findByName("Напитки");
+        Category classicRollsCategory = categoryRepository.findByName("Классические роллы");
+        Category bakedRollsCategory = categoryRepository.findByName("Запечённые роллы");
+        Category sweetRollsCategory = categoryRepository.findByName("Сладкие роллы");
+        Category setsRollsCategory = categoryRepository.findByName("Наборы");
+        Category classicBurgersCategory = categoryRepository.findByName("Классические бургеры");
+        Category spicyBurgersCategory = categoryRepository.findByName("Острые бургеры");
+        Category carbonatedDrinksCategory = categoryRepository.findByName("Газированные напитки");
+        Category energyDrinksCategory = categoryRepository.findByName("Энергетические напитки");
+        Category juicesDrinksCategory = categoryRepository.findByName("Соки");
+        Category othersDrinksCategory = categoryRepository.findByName("Другие");
 
-        Category classicBurgerCategory = new Category("Классические бургеры"
-                , burgerCategory);
-        Category spicyBurgerCategory = new Category("Острые бургеры"
-                , burgerCategory);
+        // Создание товаров для основной категории "Пицца"
+        productRepository.save(new Product(pizzaCategory, "Маргарита", "Классическая пицца с томатами, сыром и базиликом", new BigDecimal("450.00")));
+        productRepository.save(new Product(pizzaCategory, "Пепперони", "Пицца с пепперони, сыром и томатным соусом", new BigDecimal("500.00")));
+        productRepository.save(new Product(pizzaCategory, "Четыре сыра", "Пицца с четырьмя видами сыра", new BigDecimal("550.00")));
 
-        categoryRepository.save(classicBurgerCategory);
-        categoryRepository.save(spicyBurgerCategory);
+        // Создание товаров для основной категории "Роллы"
+        productRepository.save(new Product(rollsCategory, "Дракон", "Ролл с угрём, авокадо и соусом терияки", new BigDecimal("380.00")));
+        productRepository.save(new Product(rollsCategory, "Канада", "Ролл с лососем, авокадо и сливочным сыром", new BigDecimal("370.00")));
+        productRepository.save(new Product(rollsCategory, "Тайский", "Ролл с креветкой, манго и сливочным сыром", new BigDecimal("390.00")));
 
-        Category carbonatedDrinkCategory = new Category("Газированные напитки"
-        , drinkCategory);
-        Category energeticDrinkCategory = new Category("Энергетические напитки"
-                , drinkCategory);
-        Category juiceCategory = new Category("Соки", drinkCategory);
-        Category otherCategory = new Category("Другое", drinkCategory);
+        // Создание товаров для основной категории "Бургеры"
+        productRepository.save(new Product(burgersCategory, "Биг Мак", "Бургер с двумя котлетами, сыром и соусом", new BigDecimal("350.00")));
+        productRepository.save(new Product(burgersCategory, "Роял Чизбургер", "Бургер с говядиной, сыром и маринованным огурцом", new BigDecimal("330.00")));
+        productRepository.save(new Product(burgersCategory, "Двойной Роял", "Бургер с двумя котлетами и двойной порцией сыра", new BigDecimal("400.00")));
 
-        categoryRepository.save(carbonatedDrinkCategory);
-        categoryRepository.save(energeticDrinkCategory);
-        categoryRepository.save(juiceCategory);
-        categoryRepository.save(otherCategory);
+        // Создание товаров для основной категории "Напитки"
+        productRepository.save(new Product(drinksCategory, "Молочный коктейль", "Коктейль на основе молока и мороженого", new BigDecimal("150.00")));
+        productRepository.save(new Product(drinksCategory, "Лимонад", "Освежающий лимонад с мятой и лимоном", new BigDecimal("130.00")));
+        productRepository.save(new Product(drinksCategory, "Какао", "Горячий напиток с какао и молоком", new BigDecimal("110.00")));
 
-        //Создание товаров
-        //Пицца
-        Product pizzaPomodoro = new Product(pizzaCategory, "Помодоро",
-                "моцарелла, фирменный соус, бекон ветчина, колбаса, курица",
-                new BigDecimal(399));
-        Product hawaiianPizza = new Product(pizzaCategory, "Гавайская",
-                "моцарелла, фирменный соус, ветчина и ананасы",
-                new BigDecimal(349));
-        Product pizzaPepperoni = new Product(pizzaCategory, "Пепперони",
-                "моцарелла, фирменный соус, колбаски пепперони",
-                new BigDecimal(399));
+        // Создание товаров для подкатегории "Классические роллы" категории "Роллы"
+        productRepository.save(new Product(classicRollsCategory, "Филадельфия", "Ролл с лососем, сливочным сыром и огурцом", new BigDecimal("300.00")));
+        productRepository.save(new Product(classicRollsCategory, "Калифорния", "Ролл с крабом, авокадо и огурцом", new BigDecimal("320.00")));
+        productRepository.save(new Product(classicRollsCategory, "Унаги", "Ролл с угрём, сливочным сыром и огурцом", new BigDecimal("350.00")));
 
-        productRepository.save(pizzaPomodoro);
-        productRepository.save(hawaiianPizza);
-        productRepository.save(pizzaPepperoni);
+        // Создание товаров для подкатегории "Запечённые роллы" категории "Роллы"
+        productRepository.save(new Product(bakedRollsCategory, "Запечённая Филадельфия", "Запечённый ролл с лососем, сливочным сыром и огурцом", new BigDecimal("400.00")));
+        productRepository.save(new Product(bakedRollsCategory, "Запечённая Калифорния", "Запечённый ролл с крабом, авокадо и огурцом", new BigDecimal("420.00")));
+        productRepository.save(new Product(bakedRollsCategory, "Запечённый Унаги", "Запечённый ролл с угрём, сливочным сыром и огурцом", new BigDecimal("450.00")));
 
-        //Бургеры
-        Product gamBurger = new Product(burgerCategory, "Гамбургер",
-                "булка, рубленая говяжья котлета, кружочки помидора," +
-                " маринованного огурца, кетчуп", new BigDecimal(149));
-        Product cheeseBurger = new Product(burgerCategory, "Чизбургер",
-                "булка, ломтик твердого сыра, говяжья котлета," +
-                " колечко репчатого лука, соус", new BigDecimal(199));
-        Product fishBurger = new Product(burgerCategory, "Фишбургер",
-                "булка, рыбная котлета или рыбное филе", new BigDecimal(149));
+        // Создание товаров для подкатегории "Сладкие роллы" категории "Роллы"
+        productRepository.save(new Product(sweetRollsCategory, "Сладкий банан", "Ролл с бананом и шоколадом", new BigDecimal("280.00")));
+        productRepository.save(new Product(sweetRollsCategory, "Сладкая клубника", "Ролл с клубникой и сливочным сыром", new BigDecimal("300.00")));
+        productRepository.save(new Product(sweetRollsCategory, "Сладкий манго", "Ролл с манго и кокосом", new BigDecimal("320.00")));
 
-        productRepository.save(gamBurger);
-        productRepository.save(cheeseBurger);
-        productRepository.save(fishBurger);
+        // Создание товаров для подкатегории "Наборы" категории "Роллы"
+        productRepository.save(new Product(setsRollsCategory, "Сет Филадельфия", "Набор из роллов Филадельфия", new BigDecimal("800.00")));
+        productRepository.save(new Product(setsRollsCategory, "Сет Нинзя Хот", "Набор из роллов Эби", new BigDecimal("850.00")));
+        productRepository.save(new Product(setsRollsCategory, "Сет Темпура", "Набор из роллов Темпура", new BigDecimal("900.00")));
 
-        //Роллы
-        Product california = new Product(rollCategory, "Калифорния",
-                "крабовое мясо или крабовые палочки, свежий огурец," +
-                " спелый авокадо и икра масаго", new BigDecimal(649));
-        Product canada = new Product(rollCategory, "Канада",
-                "лосось или семга, сыр, авокадо, огурцы",
-                new BigDecimal(649));
-        Product philadelphia = new Product(rollCategory, "Филадельфия",
-                "лосось или семга, сливочный сыр «Филадельфия», рис для" +
-                " суши, нори", new BigDecimal(649));
+        // Создание товаров для подкатегории "Классические бургеры" категории "Бургеры"
+        productRepository.save(new Product(classicBurgersCategory, "Чизбургер", "Классический бургер с говядиной и сыром", new BigDecimal("250.00")));
+        productRepository.save(new Product(classicBurgersCategory, "Гамбургер", "Классический бургер с говядиной", new BigDecimal("230.00")));
+        productRepository.save(new Product(classicBurgersCategory, "Двойной чизбургер", "Бургер с двойной порцией говядины и остальных добавок", new BigDecimal("300.00")));
 
-        productRepository.save(california);
-        productRepository.save(canada);
-        productRepository.save(philadelphia);
+        // Создание товаров для подкатегории "Острые бургеры" категории "Бургеры"
+        productRepository.save(new Product(spicyBurgersCategory, "Острый Чизбургер", "Бургер с говядиной, сыром и острым соусом", new BigDecimal("270.00")));
+        productRepository.save(new Product(spicyBurgersCategory, "Острый Гамбургер", "Бургер с говядиной и острым соусом", new BigDecimal("250.00")));
+        productRepository.save(new Product(spicyBurgersCategory, "Острый Двойной чизбургер", "Бургер с двойной порцией говядины, сыра и остальных добавок", new BigDecimal("320.00")));
 
-        //Обычные напитки
-        Product water = new Product(drinkCategory, "Вода",
-                "вода питьевая, негазированная 1л" +
-                " спелый авокадо и икра масаго", new BigDecimal(49));
-        Product tea = new Product(drinkCategory, "Чай",
-                "чай зеленый, черный 200мл", new BigDecimal(49));
-        Product coffee = new Product(drinkCategory, "Кофе",
-                "эспрессо, американо 200мл", new BigDecimal(99));
+        // Создание товаров для подкатегории "Газированные напитки" категории "Напитки"
+        productRepository.save(new Product(carbonatedDrinksCategory, "Кола", "Газированный напиток со вкусом колы", new BigDecimal("100.00")));
+        productRepository.save(new Product(carbonatedDrinksCategory, "Фанта", "Газированный напиток со вкусом апельсина", new BigDecimal("100.00")));
+        productRepository.save(new Product(carbonatedDrinksCategory, "Спрайт", "Газированный напиток со вкусом лайма", new BigDecimal("100.00")));
 
-        productRepository.save(water);
-        productRepository.save(tea);
-        productRepository.save(coffee);
+        // Создание товаров для подкатегории "Энергетические напитки" категории "Напитки"
+        productRepository.save(new Product(energyDrinksCategory, "Red Bull", "Энергетический напиток с оригинальным вкусом энергетика", new BigDecimal("123.00")));
+        productRepository.save(new Product(energyDrinksCategory, "Adrenalin Rush", "Энергетический напиток с персиковым привкусом", new BigDecimal("120.00")));
+        productRepository.save(new Product(energyDrinksCategory, "Burn", "Энергетический напиток с апельсиновым привкусом", new BigDecimal("99.00")));
 
-        //Классические роллы
-        Product avocado = new Product(classicRollCategory, "Авокадо маки",
-                "ролл со свежим авокадо", new BigDecimal(89));
-        Product vakabi = new Product(classicRollCategory, "Вакаба маки",
-                "ролл с болгарским перцем", new BigDecimal(89));
-        Product cappa = new Product(classicRollCategory, "Каппа маки",
-                "ролл с огурцом и кунжутом", new BigDecimal(79));
+        // Создание товаров для подкатегории "Соки" категории "Напитки"
+        productRepository.save(new Product(juicesDrinksCategory, "Апельсиновый сок", "Свежевыжатый апельсиновый сок", new BigDecimal("120.00")));
+        productRepository.save(new Product(juicesDrinksCategory, "Яблочный сок", "Свежевыжатый яблочный сок", new BigDecimal("120.00")));
+        productRepository.save(new Product(juicesDrinksCategory, "Вишневый сок", "Свежевыжатый вишневый сок", new BigDecimal("120.00")));
 
-        productRepository.save(avocado);
-        productRepository.save(vakabi);
-        productRepository.save(cappa);
-
-        //Запеченые роллы
-        Product rollWithShrimp = new Product(bakeRollCategory, "Запеченный с креветкой",
-                "рис, нори, краб, креветка масаго, соус для запекания",
-                new BigDecimal(749));
-        Product masselHot = new Product(bakeRollCategory, "Массел хот",
-                "рис, нори, мидии, огурец, краб, соус для запекания",
-                new BigDecimal(749));
-        Product bakedPhiladelphia = new Product(bakeRollCategory, "Запеченная филадельфия",
-                "рис, нори, сыр, огурец, лосось, соус для запекания",
-                new BigDecimal(749));
-
-        productRepository.save(rollWithShrimp);
-        productRepository.save(masselHot);
-        productRepository.save(bakedPhiladelphia);
-
-        //Сладкие роллы
-        Product cherryRoll = new Product(sweetRollCategory, "Вишневый",
-                "вишня, яичный блинчик, шантипак, сыр филадельфия" +
-                ", вишневый топпинг", new BigDecimal(169));
-        Product strawberryRoll = new Product(sweetRollCategory, "Клубничный",
-                "клубника, яичный блинчик, шантипак, сыр филадельфия" +
-                ", клубничный топпинг", new BigDecimal(169));
-        Product kiwiRoll = new Product(sweetRollCategory, "Киви",
-                "киви, яичный блинчик, шантипак, сыр филадельфия" +
-                ", топпинг киви", new BigDecimal(169));
-
-        productRepository.save(cherryRoll);
-        productRepository.save(strawberryRoll);
-        productRepository.save(kiwiRoll);
-
-        //Наборы
-        Product coldSet = new Product(setsCategory, "Холодный набор",
-                "роллы с обощями, рыбой, сладкие",
-                new BigDecimal(1499));
-        Product bakedSet = new Product(setsCategory, "Запеченный набор",
-                "роллы без обжаривания в масле",
-                new BigDecimal(1499));
-        Product hotSet = new Product(setsCategory, "Горячий набор",
-                "роллы с обжаркой в растительном масле",
-                new BigDecimal(1499));
-
-        productRepository.save(coldSet);
-        productRepository.save(bakedSet);
-        productRepository.save(hotSet);
-
-        //Классические бургеры
-        Product steakBurger = new Product(classicBurgerCategory, "Стейк-бургер",
-                "булка, цельный кусок говядины, кружочки помидора," +
-                " маринованного огурца, кетчуп", new BigDecimal(149));
-        Product hawaiianBurger = new Product(classicBurgerCategory, "Гавайский бургер",
-                "булка, грильяж из свинины или говядины, ананас, соус",
-                new BigDecimal(249));
-        Product veganBurger = new Product(classicBurgerCategory, "Веганский бургер",
-                "бургер без продуктов животного происхождения",
-                new BigDecimal(149));
-
-        productRepository.save(steakBurger);
-        productRepository.save(hawaiianBurger);
-        productRepository.save(veganBurger);
-
-        //Острые бургеры
-        Product spicyGamBurger = new Product(spicyBurgerCategory, "Гамбургер",
-                "булка, рубленая говяжья котлета, кружочки помидора," +
-                " маринованного огурца, отсрый соус", new BigDecimal(179));
-        Product spicyCheeseBurger = new Product(spicyBurgerCategory, "Чизбургер",
-                "булка, ломтик твердого сыра, говяжья котлета," +
-                " колечко репчатого лука, острый соус", new BigDecimal(229));
-        Product spicyFishBurger = new Product(spicyBurgerCategory, "Фишбургер",
-                "булка, рыбная котлета или рыбное филе, острый соус",
-                new BigDecimal(179));
-
-        productRepository.save(spicyGamBurger);
-        productRepository.save(spicyCheeseBurger);
-        productRepository.save(spicyFishBurger);
-
-        //Газированные напитки
-        Product kvass = new Product(carbonatedDrinkCategory, "Квас",
-                "славянский напиток с объёмной долей этилового спирта не" +
-                " более 1,2%", new BigDecimal(99));
-        Product fruitWater = new Product(carbonatedDrinkCategory, "Фруктовая вода" +
-                " с сиропом", "вода с фруктовыми или ягодными сиропами",
-                new BigDecimal(99));
-        Product mineralWater = new Product(carbonatedDrinkCategory, "Вода газированная",
-                "минеральная газированная вода", new BigDecimal(99));
-
-        productRepository.save(kvass);
-        productRepository.save(fruitWater);
-        productRepository.save(mineralWater);
-
-        //Энергетические напитки
-        Product fitnessFoodCherry = new Product(energeticDrinkCategory, "Fitness Food" +
-                " Вишня-кола", "Энергетик Fitness Food Factory WKUP 450мл со вкусом"
-                + " Вишня-кола", new BigDecimal(119));
-        Product fitnessFoodMint = new Product(energeticDrinkCategory, "Fitness Food" +
-                " Малина-мята", "Энергетик Fitness Food Factory WKUP 450мл со вкусом"
-                + " Малина-мята", new BigDecimal(119));
-        Product fitnessFoodBerry = new Product(energeticDrinkCategory, "Fitness Food" +
-                " Ягодный микс", "Энергетик Fitness Food Factory WKUP 450мл со вкусом"
-                + " Ягодного микса", new BigDecimal(119));
-
-        productRepository.save(fitnessFoodCherry);
-        productRepository.save(fitnessFoodMint);
-        productRepository.save(fitnessFoodBerry);
-
-        //Соки
-        Product orangeJuice = new Product(juiceCategory, "Апельсиновый сок",
-                "сок со вкусом апельсина", new BigDecimal(99));
-        Product appleJuice = new Product(juiceCategory, "Яблочный сок",
-                "сок со вкусом яблока", new BigDecimal(99));
-        Product bananaJuice = new Product(juiceCategory, "Банановый сок",
-                "сок со вкусом банана", new BigDecimal(99));
-
-        productRepository.save(orangeJuice);
-        productRepository.save(appleJuice);
-        productRepository.save(bananaJuice);
-
-        //Другое
-        Product buckwheatTea = new Product(otherCategory, "Гречневый чай",
-                "чай из обжаренной гречихи",
-                new BigDecimal(119));
-        Product barleyTea = new Product(otherCategory, "Ячменный чай",
-                "настой из обжаренный зерен ячменя",
-                new BigDecimal(119));
-        Product riceTea = new Product(otherCategory, "Чай из коричневого риса",
-                "настой из обжаренного коричневого риса",
-                new BigDecimal(119));
-
-        productRepository.save(buckwheatTea);
-        productRepository.save(barleyTea);
-        productRepository.save(riceTea);
+        // Создание товаров для подкатегории "Другие" категории "Напитки"
+        productRepository.save(new Product(othersDrinksCategory, "Вода без газа", "Чистая питьевая вода", new BigDecimal("50.00")));
+        productRepository.save(new Product(othersDrinksCategory, "Вода с газом", "Газированная вода", new BigDecimal("50.00")));
+        productRepository.save(new Product(othersDrinksCategory, "Чай", "Чай с сахаром и лимоном", new BigDecimal("70.00")));
     }
 }

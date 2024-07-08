@@ -5,5 +5,4 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import ru.Emir.tgBot.entity.Client;
 
 @RepositoryRestResource(collectionResourceRel = "clients", path = "clients")
-public interface ClientRepository extends JpaRepository<Client, Long> {
-}
+public interface ClientRepository extends JpaRepository<Client, Long> { }

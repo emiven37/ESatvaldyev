@@ -5,5 +5,4 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import ru.Emir.tgBot.entity.Product;
 
 @RepositoryRestResource(collectionResourceRel = "products", path = "products")
-public interface ProductRepository extends JpaRepository<Product, Long> {
-}
+public interface ProductRepository extends JpaRepository<Product, Long> { }
