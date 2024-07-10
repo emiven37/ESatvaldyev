@@ -6,5 +6,4 @@ import ru.Emir.tgBot.entity.Category;
 
 @RepositoryRestResource(collectionResourceRel = "categories", path = "categories")
 public interface CategoryRepository extends JpaRepository<Category, Long> {
-
 }
